@@ -1,14 +1,31 @@
-datasets
+# Core
 pandas
 numpy
+
+# ML
 scikit-learn
 tensorflow
+
+# NLP / LLM
 transformers
 torch
 sentencepiece
+datasets==2.18.0
+
+# Evaluation
 rouge-score
+
+# Visualization
 matplotlib
 seaborn
+
+# App
 streamlit
+
+# Utils
 python-dotenv
 joblib
+
+# Jupyter
+notebook
+ipykernel
