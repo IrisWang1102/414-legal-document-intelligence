@@ -1,0 +1,14 @@
+datasets
+pandas
+numpy
+scikit-learn
+tensorflow
+transformers
+torch
+sentencepiece
+rouge-score
+matplotlib
+seaborn
+streamlit
+python-dotenv
+joblib
