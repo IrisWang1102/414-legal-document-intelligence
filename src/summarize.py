@@ -66,3 +66,10 @@ def summarize_document(text: str, reference_summary: str = None):
     final_summary = combine_summaries(chunk_summaries)
 
     return final_summary
+
+def summarize_selected_chunks(chunks):
+    combined_text = "\n\n".join(chunk["text"] for chunk in chunks)
+
+    sentences = combined_text.split(". ")
+
+    return ". ".join(sentences[:6]) + "."
