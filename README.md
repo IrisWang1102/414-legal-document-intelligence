@@ -17,7 +17,7 @@ Legal case documents are often extremely long, noisy, and difficult to process m
   - Whether a **class action lawsuit** was sought
   - The **type of legal case**
 
-The project uses the **Multi-LexSum** dataset and focuses on building an interpretable, retrieval-based baseline system for long-document intelligence.
+The project uses the **Multi-LexSum** dataset and focuses on building an interpretable extractive baseline system for long-document intelligence, combining lightweight legal summarization and legal case classification.
 
 ---
 
@@ -106,7 +106,7 @@ multi_lexsum = load_dataset(
 
 ### 1. Legal Case Summarization
 
-A retrieval-guided extractive summarization pipeline for long legal documents.
+A lightweight extractive summarization pipeline for long legal documents.
 
 Pipeline:
 
@@ -117,9 +117,7 @@ Text cleaning
 ↓
 Chunking
 ↓
-TF-IDF retrieval
-↓
-Chunk ranking
+Chunk filtering
 ↓
 Extractive summarization
 ↓
@@ -215,13 +213,15 @@ Metrics:
 - ROUGE-2
 - ROUGE-L
 
+Sample-level baseline evaluation using extractive summarization.
+
 Example baseline result:
 
 | Metric | Score |
 |--------|-------|
-| ROUGE-1 | 0.399 |
-| ROUGE-2 | 0.074 |
-| ROUGE-L | 0.184 |
+| ROUGE-1 | 0.342 |
+| ROUGE-2 | 0.120 |
+| ROUGE-L | 0.196 |
 
 ---
 
@@ -258,16 +258,18 @@ This allows:
 
 ---
 
-### Retrieval-Based Summarization
+### Extractive Summarization Baseline
 
-Instead of summarizing entire documents directly, the system:
+Since legal documents are often extremely long, the system uses a lightweight extractive summarization pipeline.
 
-1. Splits the document into chunks
-2. Ranks chunks using TF-IDF similarity
-3. Selects top-k relevant chunks
-4. Produces summaries from selected chunks
+The process:
 
-This improves efficiency for long legal documents.
+1. Split long legal documents into overlapping chunks
+2. Filter noisy or low-information chunks
+3. Extract representative sentences from document chunks
+4. Generate long / short / tiny summaries
+
+This lightweight baseline prioritizes interpretability and fast iteration for long legal documents.
 
 ---
 
