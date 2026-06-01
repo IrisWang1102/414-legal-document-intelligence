@@ -30,3 +30,7 @@ joblib
 notebook
 ipykernel
 
+# Streamlit
+streamlit
+pypdf
+openai

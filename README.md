@@ -57,46 +57,43 @@ multi_lexsum = load_dataset(
 
 ---
 
+
 ## Repository Structure
 
 ```text
 414-legal-document-intelligence/
 │
-├── data/
-│   ├── raw/
-│   │   ├── train.csv
-│   │   ├── validation.csv
-│   │   └── test.csv
-│   │
-│   └── processed/
-│       ├── train_clean.csv
-│       ├── validation_clean.csv
-│       └── test_clean.csv
+├── app/
+│   └── streamlit_app.py              # Streamlit interactive interface
 │
-├── models/
-│   ├── class_action/
-│   │   └── class_action_tfidf_logreg.pkl
-│   │
-│   └── case_type/
-│       └── case_type_tfidf_logreg.pkl
+├── data/
+│   ├── raw/                          # Original dataset
+│   ├── processed/                    # Cleaned datasets
+│   └── sample_documents/             # Example legal documents
+│
+├── models/                           # Saved models (future use)
 │
 ├── notebooks/
 │   ├── 01_data_exploration.ipynb
 │   ├── 02_baseline_summarization.ipynb
 │   └── 03_classification_model.ipynb
 │
+├── outputs/                          # Generated outputs
+│
 ├── src/
+│   ├── classify.py
+│   ├── config.py
+│   ├── document_loader.py            # Load TXT/PDF files
+│   ├── evaluate.py
+│   ├── llm_chains.py                 # Rule-based summarization + clause extraction
 │   ├── load_data.py
 │   ├── preprocess.py
+│   ├── risk_analyzer.py              # Risk scoring pipeline
 │   ├── summarize.py
-│   ├── classify.py
-│   └── evaluate.py
-│
-├── app/
-│   └── streamlit_app.py
+│   ├── text_cleaner.py               # Text cleaning
+│   └── utils.py
 │
 ├── requirements.txt
-├── .gitignore
 └── README.md
 ```
 
@@ -358,4 +355,162 @@ Therefore:
 - OCR noise may remain
 - boilerplate legal language may appear
 - summaries are not fully abstractive
+
+---
+# Legal Document Intelligence Tool
+
+This tool provides a rule-based baseline system built with Streamlit that allows users to upload legal documents and automatically generate summaries, extract important clauses, and identify potential contractual risks.
+
+
+---
+
+## Project Overview
+
+Legal documents are often lengthy, difficult to review, and contain hidden contractual risks. This project aims to improve legal document understanding by providing an interactive tool that helps users quickly analyze uploaded contracts.
+
+Users can upload PDF or TXT legal documents and receive:
+
+* Document summary
+* Key clause extraction
+* Risk identification table
+* Evidence-based explanations
+
+This system uses rule-based extraction and keyword-driven risk analysis as an explainable and reproducible baseline.
+
+---
+
+## Features
+
+### 1. Document Upload
+
+Upload legal documents in:
+
+* PDF
+* TXT
+
+### 2. Document Summary
+
+Generate a lightweight rule-based summary of the uploaded document to provide a quick overview of major contractual content.
+
+Example extracted information includes:
+
+* Agreement purpose
+* Parties involved
+* Service scope
+* Payment obligations
+* Termination conditions
+
+### 3. Key Clause Extraction
+
+Automatically extract important legal clauses using keyword-based matching.
+
+Current supported clauses:
+
+* Payment
+* Termination
+* Liability
+* Confidentiality
+* Compliance
+
+### 4. Risk Analysis
+
+Generate a structured risk table with:
+
+* Risk area
+* Risk level
+* Supporting evidence
+* Explanation
+
+Risk levels are determined using rule-based legal keyword matching.
+
+---
+
+## Methodology
+
+### Rule-Based Legal Intelligence
+
+The current system uses:
+
+1. Text preprocessing
+
+Uploaded documents are cleaned and normalized before analysis.
+
+2. Clause extraction
+
+Legal clauses are identified using keyword matching and sentence-level extraction.
+
+3. Rule-based risk scoring
+
+Contractual risks are estimated through predefined legal signals such as:
+
+* financial penalties
+* liability limitations
+* termination conditions
+* confidentiality obligations
+* compliance requirements
+
+This design creates an explainable baseline system that does not require external APIs.
+
+
+---
+
+## Installation
+
+Clone the repository:
+
+```bash
+git clone <repository_url>
+cd 414-legal-document-intelligence
+```
+
+Create virtual environment:
+
+```bash
+python -m venv .venv
+```
+
+Activate virtual environment:
+
+Windows:
+
+```bash
+.venv\Scripts\activate
+```
+
+Install dependencies:
+
+```bash
+pip install -r requirements.txt
+```
+
+---
+
+## Run the Application
+
+Run the Streamlit app:
+
+```bash
+streamlit run app/streamlit_app.py
+```
+
+Then open:
+
+```text
+http://localhost:8501
+```
+
+---
+
+## Example Workflow
+
+1. Upload a legal contract in PDF or TXT format
+
+2. Click **Run Analysis**
+
+3. View:
+
+* Document summary
+* Extracted clauses
+* Risk table
+
 
